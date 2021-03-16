@@ -13,7 +13,12 @@ if __name__ == '__main__':
     my_label.config(text="newer text")  # another way to change text
 
     # Button
-    button = Button(text="hello")
+
+    def button_click():
+        print("I got clicked!")
+
+    button = Button(text="click me!", command=button_click)
+    button.pack()
 
     # end statement
     window.mainloop()
