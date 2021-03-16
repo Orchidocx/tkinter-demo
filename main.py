@@ -15,15 +15,16 @@ if __name__ == '__main__':
     # Button
 
     def button_click():
-        my_label.config(text="button got clicked!")
-        print("I got clicked!")
+        print(f'You typed {u_input.get()}!')
+        my_label.config(text=u_input.get())
 
     button = Button(text="click me", command=button_click)
     button.pack()
 
     # Entry (Input)
-    u_input = Entry()
+    u_input = Entry(width=10)
     u_input.pack()
+
 
     # end statement
     window.mainloop()
