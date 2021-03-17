@@ -16,9 +16,11 @@ LONG_BREAK_MIN = 20
 reps = 0
 timer = None
 
+
 def pomodoro():
     window = Tk()
     window.title("Pomodoro Timer")
+    window.iconbitmap("tomato.ico")
     window.config(padx=100, pady=50, bg=MINT)
 
     def reset_timer():
