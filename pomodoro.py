@@ -1,3 +1,4 @@
+import math
 from tkinter import *
 
 PINK_LITE = "#f6dfeb"
@@ -8,7 +9,7 @@ MINT = "#caf7e3"
 GREEN = "#00917c"
 FONT_NAME = "Courier"
 
-WORK_MIN = 1
+WORK_MIN = 25
 SHORT_BREAK_MIN = 5
 LONG_BREAK_MIN = 20
 
@@ -27,23 +28,24 @@ def pomodoro():
         long_break_sec = LONG_BREAK_MIN * 60
         if reps % 8 == 0:
             count_down(long_break_sec)
-            timer_label.config(text="Break Time!", fg=RED_LITE)
+            timer_label.config(text="Break!", fg=RED_LITE)
         elif reps % 2 == 1:
             count_down(work_sec)
             timer_label.config(text="Work!", fg=GREEN)
         else:
             count_down(short_break_sec)
-            timer_label.config(text="Break Time!", fg=RED_LITE)
+            timer_label.config(text="Break!", fg=RED_LITE)
 
     def count_down(count):
         canvas.itemconfig(timer_text, text=f'{int(count/60)}:{count%60:02}')
         if count > 0:
             window.after(1000, count_down, count - 1)
         else:
+            check_label.config(text=f'{"✔" * math.floor(1+(reps/2))}')
             start_timer()
 
     timer_label = Label(text="Timer", fg=RED_LITE, bg=MINT, font=(FONT_NAME, 30, "bold"))
-    check_label = Label(text="✔", fg=RED_LITE, bg=MINT, font=(FONT_NAME, 15, "bold"))
+    check_label = Label(fg=RED_LITE, bg=MINT, font=(FONT_NAME, 15, "bold"))
 
     tomato_img = PhotoImage(file="tomato.png")
     canvas = Canvas(width=202, height=224, bg=MINT, highlightthickness=0)
