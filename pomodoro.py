@@ -14,11 +14,20 @@ SHORT_BREAK_MIN = 5
 LONG_BREAK_MIN = 20
 
 reps = 0
+timer = None
 
 def pomodoro():
     window = Tk()
     window.title("Pomodoro Timer")
     window.config(padx=100, pady=50, bg=MINT)
+
+    def reset_timer():
+        global reps
+        window.after_cancel(timer)
+        timer_label.config(text="Timer", fg=RED_LITE)
+        canvas.itemconfig(timer_text, text="00:00")
+        check_label.config(text="")
+        reps = 0
 
     def start_timer():
         global reps
@@ -39,7 +48,8 @@ def pomodoro():
     def count_down(count):
         canvas.itemconfig(timer_text, text=f'{int(count/60)}:{count%60:02}')
         if count > 0:
-            window.after(1000, count_down, count - 1)
+            global timer
+            timer = window.after(1000, count_down, count - 1)
         else:
             check_label.config(text=f'{"✔" * math.floor(1+(reps/2))}')
             start_timer()
@@ -53,7 +63,7 @@ def pomodoro():
     timer_text = canvas.create_text(102, 132, text="00:00", fill="white", font=(FONT_NAME, 30, "bold"))
 
     start_btn = Button(text="Start", highlightthickness=0, command=start_timer)
-    reset_btn = Button(text="Reset", highlightthickness=0)
+    reset_btn = Button(text="Reset", highlightthickness=0, command=reset_timer)
 
     timer_label.grid(column=1, row=0)
     check_label.grid(column=1, row=3)
